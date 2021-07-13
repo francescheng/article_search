@@ -1,6 +1,8 @@
   <h1>Add a new article</h1>
     <%= simple_form_for(@article) do |f| %>
         <%= f.input :link %>
+
+        <%= f.submit "Link Preview" %>
         <%= f.submit %>
     <% end %>
   <%= link_to articles_path do %>
