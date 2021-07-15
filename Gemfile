@@ -29,10 +29,18 @@ gem 'jbuilder', '~> 2.7'
 gem 'bootsnap', '>= 1.4.2', require: false
 
 # Additional gems
+
+# gems for web scraping
 gem 'simple_form'
 gem 'nokogiri'
 gem 'open-uri'
 gem 'metainspector'
+
+# search
+gem 'pg_search'
+
+# environmental variables
+gem 'dotenv-rails', groups: [:development, :test]
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

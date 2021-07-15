@@ -1,11 +1,22 @@
-<% @articles.each do |article|%>
-    <p><%= article.title%></p>
-    <p><%= article.link%></p>
-    <p><%= article.body%></p>
-
-    <% end %>
-
 <form class="form-search" method="GET" action="/scrape">
 <input type="url" name="url" class="input-medium search-query">
 <button type="submit" class="btn">Scrape</button>
 </form>
+
+<%= form_tag articles_path, method: :get do%>
+<%= text_field_tag :query,
+    params[:query],
+    class: "form-control",
+    placeholder: "Search for an article"
+%>
+<%= submit_tag "Search"%>
+<% end %>
+
+<div id="articles">
+    <% @articles.each do |article|%>
+        <p><%= article.title%></p>
+        <p><%= article.link%></p>
+        <p><%= article.body%></p>
+
+        <% end %>
+</div>
