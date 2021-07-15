@@ -10,6 +10,8 @@ class ArticlesController < ApplicationController
 
     def show
         @article = Article.find(params[:id])
+        @short_link = get_short_link(@article.link)
+        raise
     end
 
     def new
@@ -47,6 +49,29 @@ class ArticlesController < ApplicationController
 
     private
 
+    def get_short_link(long_link)
+        # url = URI("https://api-ssl.bitly.com/v4/shorten")
+
+        # https = Net::HTTP.new(url.host, url.port)
+        # https.use_ssl = true
+        
+        # request = Net::HTTP::Post.new(url)
+        # request["Content-Type"] = "application/json"
+        # request["Authorization"] = ENV['TOKEN']
+        # request.body = JSON.dump({
+        #   "long_url": long_link
+        # })
+        
+        # response = https.request(request)
+        # return response.body.id
+        url = "https://api-ssl.bitly.com/v4/shorten"
+        headers = {"Content-Type": "application/json", "Authorization": ENV['TOKEN']}
+        body = {"long_url": long_link}.to_json
+        response = HTTParty.post(url, body: body, headers: headers)
+        p response.body
+        return response.body
+    end
+    
     def article_params
         params.require(:article).permit(:title, :link, :body, :reading_time)
     end
