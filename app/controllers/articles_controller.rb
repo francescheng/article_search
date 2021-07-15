@@ -10,8 +10,6 @@ class ArticlesController < ApplicationController
 
     def show
         @article = Article.find(params[:id])
-        @short_link = get_short_link(@article.link)
-        raise
     end
 
     def new
@@ -21,16 +19,13 @@ class ArticlesController < ApplicationController
     def scrape
         @page = MetaInspector.new(params[:url])
         @article = Article.new
-        # if params[:commit] == "Link Preview"
-        #     render :new
         headings = []
-        # page = MetaInspector.new(link)
         headings << @page.h1
         headings << @page.h2
         headings << @page.h3
         @body = headings.join(", ")
-
     end
+
     def create
         @article = Article.new(article_params)
         if @article.save 
@@ -48,6 +43,7 @@ class ArticlesController < ApplicationController
     end
 
     private
+
 
     def article_params
         params.require(:article).permit(:title, :link, :body, :reading_time)

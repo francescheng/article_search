@@ -14,9 +14,11 @@
 
 <div id="articles">
     <% @articles.each do |article|%>
-        <p><%= article.title%></p>
+        <%= link_to article do %>
+            <h2><%= article.title %></h2>
+        <% end %>
         <p><%= article.link%></p>
         <p><%= article.body%></p>
-
+        <p><%=pluralize(article.reading_time, 'minute')%></p>
         <% end %>
 </div>
