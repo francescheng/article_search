@@ -1,5 +1,16 @@
 <h2><%= @article.title %></h2>
-<h2><%= @article.link %></h2>
-<h2><%= @article.reading_time %></h2>
-<h2><%= @article.short_link %></h2>
-<p><%= @article.body %></p>
+<p><%= @article.short_link %></p>
+<p>Reading time: 
+    <%if @article.reading_time && @article.reading_time.to_i > 0 %>
+        <%= pluralize(@article.reading_time, 'minute')%>
+    <% else %>
+        Under 1 minute
+    <% end %></p>
+    <ul>
+        <%= @article.body.split(",").each do |string|%>
+            <li><%= string %></li>
+        <% end %>
+    </ul>
+<%= link_to articles_path do %>
+    <h2>Home</h2>
+<% end %>

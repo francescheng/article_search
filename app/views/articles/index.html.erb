@@ -1,5 +1,5 @@
 <form class="form-search" method="GET" action="/scrape">
-<input type="url" name="url" class="input-medium search-query">
+<input type="url" name="url" class="input-medium search-query", placeholder="Add a new article link">
 <button type="submit" class="btn">Scrape</button>
 </form>
 
@@ -14,11 +14,22 @@
 
 <div id="articles">
     <% @articles.each do |article|%>
-        <%= link_to article do %>
-            <h2><%= article.title %></h2>
-        <% end %>
-        <p><%= article.link%></p>
-        <p><%= article.body%></p>
-        <p><%=pluralize(article.reading_time, 'minute')%></p>
-        <% end %>
+        <div class="article">
+            <%= link_to article do %>
+                <h2><%= article.title %></h2>
+            <% end %>
+            <p><%= article.short_link%></p>
+            <p>Reading time: 
+            <%if article.reading_time && article.reading_time.to_i > 0 %>
+                <%= pluralize(article.reading_time, 'minute')%>
+            <% else %>
+                Under 1 minute
+            <% end %></p>
+            <ul>
+                <%= article.body.split(",").each do |string|%>
+                    <li><%= string %></li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
 </div>

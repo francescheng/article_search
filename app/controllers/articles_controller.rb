@@ -5,15 +5,10 @@ class ArticlesController < ApplicationController
         else
             @articles = Article.all
         end
-
     end
 
     def show
         @article = Article.find(params[:id])
-    end
-
-    def new
-        @article = Article.new
     end
 
     def scrape
@@ -31,19 +26,11 @@ class ArticlesController < ApplicationController
         if @article.save 
             redirect_to article_path(@article)
         else
-            render :new
+            redirect_to articles_path
         end
-
-    end
-
-    def destroy
-        @article = Article.find(params[:id])
-        @article.destroy
-        redirect_to articles_path
     end
 
     private
-
 
     def article_params
         params.require(:article).permit(:title, :link, :body, :reading_time)
