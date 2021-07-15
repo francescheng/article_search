@@ -13,15 +13,15 @@ class ArticlesController < ApplicationController
 
     def scrape
         @page = MetaInspector.new(params[:url])
+        @article = Article.new
         # if params[:commit] == "Link Preview"
         #     render :new
-        # headings = []
+        headings = []
         # page = MetaInspector.new(link)
-        # headings << page.h1
-        # headings << page.h2
-        # headings << page.h3
-        # @title = page.title
-        # @body = headings.join(", ")
+        headings << @page.h1
+        headings << @page.h2
+        headings << @page.h3
+        @body = headings.join(", ")
 
     end
     def create
