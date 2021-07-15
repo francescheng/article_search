@@ -1,6 +1,7 @@
 class ArticlesController < ApplicationController
     def index
         @articles = Article.all
+
     end
 
     def show
@@ -10,17 +11,27 @@ class ArticlesController < ApplicationController
         @article = Article.new
     end
 
+    def scrape
+        @page = MetaInspector.new(params[:url])
+        # if params[:commit] == "Link Preview"
+        #     render :new
+        # headings = []
+        # page = MetaInspector.new(link)
+        # headings << page.h1
+        # headings << page.h2
+        # headings << page.h3
+        # @title = page.title
+        # @body = headings.join(", ")
+
+    end
     def create
         @article = Article.new(article_params)
-        if params[:commit] == "Link Preview"
-            render :new
+        if @article.save 
+            redirect_to article_path(@article)
         else
-            if @article.save 
-                redirect_to article_path(@article)
-            else
-                render :new
-            end
+            render :new
         end
+
     end
 
     def destroy

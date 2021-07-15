@@ -1,0 +1,15 @@
+<p>Title:<%= @page.best_title %></p>
+<p>H3: <%=@page.h3 %></p>
+    <%= simple_form_for @article, url: new_article_path do |f| %>
+      <% if params[:commit] == "Link Preview"%>
+        <p>Title: <%= @article.title%> </p>
+        <p>Body: <%= @article.body%> </p>
+        <p>Page: <%= @page.title%> </p>
+      <% end %>
+
+      <%= f.input :link %>
+      <%= f.input :title, input_html: {id: 'sign_up_code', value: @page.best_title }%>
+      <%= f.input :body %> 
+      <%= f.submit "Link Preview" %>
+      <%= f.submit %>
+    <% end %>
