@@ -26,7 +26,7 @@
                 Under 1 minute
             <% end %></p>
             <ul>
-                <%= article.body.split(",").each do |string|%>
+                <% article.body.split(",").each do |string|%>
                     <li><%= string %></li>
                 <% end %>
             </ul>
